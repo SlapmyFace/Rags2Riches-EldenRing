@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <title>Rags to Riches</title>
+	<style>
+	@font-face { font-family: DS; src: url('MantiniaRegular.otf'); }
+	@font-face { font-family: DSBold; src: url('Mantinia Regular.otf'); }
+	</style>
+  </head>
+  <body style="background-image: url('img/bg.png'); background-size: cover; background-repeat: no-repeat; background-position: center center; background-attachment: fixed; background-color: #000000;">
+    <div class="container mx-auto center-block text-center">
+       
+        
+        
+        <div class="card mb-3 my-5 mx-auto w-75" style="max-width: 700px;">
+            <div class="row g-0">
+                <div class="col-md-4 bg-dark">
+                    <img src="..." alt="" class="p-4" id="cardImgReward" style="width: 100%; height: auto;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-header"> 
+                        <h1 id="cardTitle" alt="" style="font-family: MantiniaRegular; text-shadow: 0 0 3px red">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text fs-4" id="cardText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <br>
+        <p class="text-center text-white fs-6 fst-italic">Current Effects:</p>
+        <i class="text-center text-white fs-6 fst-italic fw-bold lh-1" id="currentEffect" onmousedown="showMisfortuneDetails();">none</i>
+    <br><br><br>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenu" aria-expanded="false" aria-controls="collapseMenu" title="Toggles additional options and values">
+                Advanced
+            </button>
+            <div class="collapse" id="collapseMenu">
+            
+            <br>
+
+
+            <button type="button" class="btn btn-success" onmousedown="showTutorial();">Tutorial on Rags To Riches</button><br>
+            <button type="button" class="btn btn-success" onmousedown="showLicense();">License</button><br><br>
+            <br>
+            
+                <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
+
+                    <input type="checkbox" class="btn-check" id="v_SpellRoll" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="v_SpellRoll" title="Includes sorcery in spell rewards">Sorcery rolling</label>
+
+                    <input type="checkbox" class="btn-check" id="v_IncantRoll" autocomplete="off" checked>
+                    <label class="btn btn-outline-secondary" for="v_IncantRoll" title="Includes incantations in spell rewards">Incant rolling</label>
+
+                    <input type="checkbox" class="btn-check" id="v_AddReward" autocomplete="off" checked>
+                    <label class="btn btn-outline-secondary" for="v_AddReward" title="Adds up rewards instead of setting them back to 0 before rerolling">Add up rewards</label>
+
+                    <input type="checkbox" class="btn-check" id="v_SkipChallenges" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="v_SkipChallenges" title="Skip challenges in misfortunes">No Challenges</label>
+
+                    <input type="checkbox" class="btn-check" id="v_CraftingMaterials" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="v_CraftingMaterials" title="Roll crafting materials instead of consumables">Crafting Materials instead of Consumables</label>
+
+                    <input type="checkbox" class="btn-check" id="v_MfContinue" autocomplete="off" checked>
+                    <label class="btn btn-outline-secondary" for="v_MfContinue" title="Blocks Win or Lose click until misfortunes have all been used">No Reroll on MF > 0</label>
+                    
+                    <input type="checkbox" class="btn-check" id="v_Continue" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="v_Continue" title="Blocks Win or Lose click until everything has been used">No Reroll on any > 0</label>
+                </div>
+                <br><br>
+                <div class="mx-auto text-white" style="width: 75%; max-width: 600px">
+                    <label for="v_consumable" id="l_consumable" class="form-label">Change for common reward on roll:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_consumable" oninput="l_consumable.innerText = 'Common: ' + (v_consumable.value * 100).toFixed(1) + ' %'">
+                    
+                    <label for="v_weapon" id="l_weapon" class="form-label">Change for rare reward on roll:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_weapon" oninput="l_weapon.innerText = 'Rare: ' + (v_weapon.value * 100).toFixed(1) + ' %'">
+                                        
+                    <label for="v_talisman" id="l_talisman" class="form-label">Change for rare reward on roll:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_talisman" oninput="l_talisman.innerText = 'Rare: ' + (v_talisman.value * 100).toFixed(1) + ' %'">
+                    
+                    <label for="v_legendary" id="l_legendary" class="form-label">Change for legendary reward on roll:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_legendary" oninput="l_legendary.innerText = 'Legendary: ' + (v_legendary.value * 100).toFixed(1) + ' %'">
+                    
+                     <label for="v_misfortune" id="l_misfortune" class="form-label">Change for misfortune on loss:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortune" oninput="l_misfortune.innerText = 'Misfortune on loss: ' + (v_misfortune.value * 100).toFixed(1) + ' %'">                    
+                    
+                    <label for="v_armor" id="l_armor" class="form-label">Change for armor reward on roll:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_armor" oninput="l_armor.innerText = 'Armor: ' + (v_armor.value * 100).toFixed(1) + ' %'">
+                    
+                    <label for="v_spell" id="l_spell" class="form-label">Change for spell reward on roll:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_spell" oninput="l_spell.innerText = 'Spell: ' + (v_spell.value * 100).toFixed(1) + ' %'; ">
+                    
+                    <label for="v_misfortuneAvoidance" id="l_misfortuneAvoidance" class="form-label">Change for getting lucky on rolling misfortune:</label>
+                    <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_misfortuneAvoidance" oninput="l_misfortuneAvoidance.innerText = 'Misfortune Avoidance: ' + (v_misfortuneAvoidance.value * 100).toFixed(1) + ' %'">
+                    
+                    <label for="v_challenge" id="l_challenge" class="form-label">Change for getting a challenge when not lucky:</label>
+                    <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_challenge" oninput="l_challenge.innerText = 'Challenge on Misfortune: ' + (v_challenge.value * 100).toFixed(1) + ' %'">
+                    
+                    <label for="v_misfortuneOnWin" id="l_misfortuneOnWin" class="form-label">Chance for misfortune on win:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortuneOnWin" oninput="l_misfortuneOnWin.innerText = 'Mfw: ' + (v_misfortuneOnWin.value * 100).toFixed(1) + ' %'">
+                </div>
+                
+                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('baby');" type="button">Baby defaults</button>
+                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('easy');" type="button">Easy defaults</button>
+                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('medium');" type="button">Medium defaults</button>
+                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('hard');" type="button">Hard defaults</button>
+                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('fuck');" type="button" title="You're nuts dude. Good luck.">Mental defaults</button><br><br>
+<!--                 <button class="btn btn-outline-primary fs-6" style="width: 100px" onmousedown="setCookies();" type="button">Save settings</button> -->
+<!--                 <button class="btn btn-outline-primary fs-6" style="width: 100px" onmousedown="loadButtonPressed();" type="button">Load settings</button> -->
+<!--                 <button class="btn btn-outline-primary fs-6" style="width: 100px" onmousedown="deleteCookies();" type="button">Delete cookies</button> -->
+                <!-- <br><br><button class="btn btn-outline-secondary" style="width: 10%" id="modeButton"> ER </button><br> -->
+<!--                 <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="console.log(document.cookie)" type="button">Show cookie string</button> -->
+            </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="fixed-bottom px-6 border-top" style="background: #000000"><br>
+
+    <div class="container mx-auto center-block text-center">
+        <button type="button" class="fs-2 btn-secondary" id="b_consumable" onmousedown="useReward('consumable');" title="Consumable reward"> <p class="text-dark" style="font-size: 12px; margin-bottom: 0" id="c_consumable"> x0 </p> <img src="img/rewardDiamond.png" style="width: 35px; height: auto" id="d_consumable"> </button>
+        <button type="button" class="fs-2 btn-success" id="b_weapon" onmousedown="useReward('weapon');" title="Weapon Reward"> <p class="text-dark" style="font-size: 12px; margin-bottom: 0" id="c_weapon"> x0 </p> <img src="img/rewardDiamond.png" style="width: 35px; height: auto" id="d_weapon"> </button>
+		<button type="button" class="fs-2 btn-danger" id="b_talisman" onmousedown="useReward('talisman');" title="Talisman Reward"> <p class="text-dark" style="font-size: 12px; margin-bottom: 0" id="c_talisman"> x0 </p> <img src="img/rewardDiamond.png" style="width: 35px; height: auto" id="d_talisman"> </button>
+        <button type="button" class="fs-2 btn-secondary" id="b_armor"  onmousedown="useReward('armor');" title="Armor Reward"> <p class="text-dark" style="font-size: 12px; margin-bottom: 0" id="c_armor"> x0 </p> <img src="img/rewardDiamond.png" style="width: 35px; height: auto" id="d_armor"> </button>
+        <button type="button" class="fs-2 btn-warning" id="b_legendary" onmousedown="useReward('legendary');" title="Legendary reward"> <p class="text-dark" style="font-size: 12px; margin-bottom: 0" id="c_legendary"> x0 </p> <img src="img/rewardDiamond.png" style="width: 35px; height: auto" id="d_legendary"> </button>
+        <button type="button" class="fs-2 btn-primary" id="b_spell" onmousedown="useReward('spell');" title="Spell / Incantation reward"> <p class="text-dark" style="font-size: 12px; margin-bottom: 0" id="c_spell"> x0 </p> <img src="img/rewardDiamond.png" style="width: 35px; height: auto" id="d_spell"> </button>
+        <button type="button" class="fs-2 btn-light" id="b_misfortune" onmousedown="useMisfortune();" title="Misfortune 'Reward'"> <p class="text-dark" style="font-size: 12px; margin-bottom: 0" id="c_misfortune"> x0 </p> <img src="img/rewardDiamond.png" style="width: 35px; height: auto" id="d_misfortune"> </button>
+        <br><br>
+        <button class="btn btn-success" style="width: 45%; max-width: 250px;" onmousedown="rollRewards(true);" type="button" title="Won a match? Click here">Win</button>
+        <button class="btn btn-danger" style="width: 45%; max-width: 250px;" onmousedown="rollRewards(false);" type="button" title="Lost a match, click here">Lose</button><br>
+<!--         <br><br><p class="text-white fst-italic" style="font-size: 8px"> Created by SlapmyFace (2021) using Bootstrap</p> -->
+    
+    </div>
+</div>
+    
+    <script id="listSrc" src="functions.js"></script>
+  </body>
+</html>
