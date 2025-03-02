@@ -211,7 +211,45 @@ craftingMaterialsList = [
 "Trina's Lily",
 "Turtle Neck Meat",
 "Volcanic Stone",
-"Yellow Ember"
+"Yellow Ember",
+"Spiritgrave Stone",
+"Gas Stone (2x)",
+"Nailstone (2x)",
+"Sharp Gravel Stone",
+"Rauh Burrow",
+"Furnace Visage",
+"Dewgem",
+"Redflesh Mushroom",
+"Whiteflesh Mushroom",
+"Finger Mimic",
+"Yellow Fulgurbloom",
+"Red Fulgurbloom",
+"Ghostflame Bloom",
+"Shadow Sunflower",
+"Scarlet Bud",
+"Sanguine Amaryllis",
+"Dragon's Calorbloom",
+"Deep-Purple Lily",
+"Nectarblood Burgeon",
+"Empyrean-Blood Burgeon",
+"Knot Resin (2x)",
+"Beast Horn (2x)",
+"Spirit Calculus",
+"Scorpion Liver",
+"Fly Mold (2x)",
+"Pearlescent Scale",
+"Ember of Messmer",
+"Black Pyrefly",
+"Glintslab Firefly",
+"Toxic Mossling",
+"Frozen Maggot",
+"Winter-Lantern Fly",
+"Grave Cricket",
+"Grave Keeper's Brainpan",
+"Congealed Putrescence",
+"Blessed Bone Shard",
+"Horn-Strewn Excrement",
+"Swollen Grape"
 ]
 
 weaponsList = [
@@ -649,16 +687,9 @@ weaponsList = [
 "Wolf Crest Shield",
 "Messmer Soldier Shield",
 "Verdigris Greatshield",
-"Black Steel Greatshield"
-
-]
-
-catalystList = [
-"Staff of the Great Beyond",
-"Maternal Staff",
-"Dryleaf Seal",
-"Fire-Knight's Seal",
-"Spiraltree Seal"
+"Black Steel Greatshield",
+"Any Staff",
+"Any Seal"
 ]
 
 talismansList = [

@@ -157,136 +157,6 @@ loadList();
 
 setButtonAmounts();
 
-/////////////////////////////////////////////////////////////////////////////
-
-function loadList() {
-    
-    mode = "er"
-    
-    var newScript = document.createElement("script");
-    newScript.src = 'lists/' + mode + '.js';
-    newScript.type = 'text/javascript';
-    document.getElementsByTagName('head')[0].appendChild(newScript);
-}
-
-function changeGamemode(gamemode) {
-    
-    if (confirm("This will reset all values and percentages and then set the current game to " + gamemode + ".\n\nProceed?")) {
-        mode = gamemode;
-        consumables = 0;
-		talismans = 0;
-        weapons = 0;
-        legendaries = 0;
-        misfortunes = 0;
-        armors = 0;
-        spells = 0;
-        
-        setCookies();
-        document.location.reload(true);
-    }
-    
-}
-
-//COOKIES FUNCTIONALITY
-
-function setCookies() {
-//     
-    //Set all cookie values at once
-    
-    var saveCText = "";
-    
-    allValues.forEach(rarity => {
-        saveCText += (rarity + ": " + getCookie(rarity) + "\n");
-    });
-    
-    if (!confirm(cookieDialogPre + saveCText + cookieDialogPost)) {
-        return;
-    }
-    
-    var cookies = [];
-    
-    var now = new Date();
-    var time = now.getTime();
-    var expireTime = time + 1000*36000;
-    now.setTime(expireTime);
-    var appendage = "expires="+ now.toUTCString() + ";sameSite=Lax";
-    
-    allValues.forEach(rarity => {
-        
-        document.cookie = rarity + "C=" + getValue(rarity) + "; " + appendage;
-        
-    }); 
-}
-
-
-function getCookie(cname) {
-    
-    //geta specific cookie value from an ID
-    
-    var name = cname + "C=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-            while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            // console.log("getCookie(" + cname + ") yielded " + c.substring(name.length, c.length));
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-    //w3schools example for cookie read
-}
-
-function loadFromCookies(showAlert = false) {
-    
-    if (getCookie("mode") == "") {
-        if (showAlert) {
-            alert("No cookies found, aborting load.");
-        }
-        return false;
-    } 
-    
-    allValues.forEach(rarity => {
-//         console.log("Loaded value for " + rarity + ": " + getCookie(rarity) + ". Setting...");
-        
-        setValue(rarity, getCookie(rarity));
-        
-    });
-}
-
-function deleteCookies() {
-    
-    if (confirm("Delete all cookies?")) {
-        
-        var cookies = [];
-    
-        var now = new Date();
-        var time = now.getTime();
-        var appendage = "expires="+ now.toUTCString() + ";sameSite=Lax";
-        
-        allValues.forEach(rarity => {
-            
-            document.cookie = rarity + "C=" + getValue(rarity) + "; " + appendage;
-            
-            
-        }); 
-        
-//         console.log(document.cookie);
-        
-    };
-    
-}
-
-function getCookieValues() {
-    var values = [];
-    
-    allValues.forEach(rarity => {
-       values.push(getCookie(rarity));
-    });
-}
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -403,6 +273,94 @@ function setButtonAmounts() {
 
 
 ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+function useReward(rarity) {
+    var list = [];
+    var randomItem;
+    var addendum = "";
+    var imgType = "";
+    var useNestedList = false;
+
+    switch (rarity) {
+        case "consumable":
+            if (getValue("CraftingMaterials")) {
+                list = craftingMaterialsList;
+            }
+            else {
+                list = consumablesList;
+            }
+            list.push(...uncraftablesList);
+
+            imgType = rarity;
+            break;
+        case "weapon":
+            list = weaponsList;
+            imgType = rarity;
+            break;
+        case "talisman":
+            list = talismansList;
+            imgType = rarity;
+            break;
+        case "legendary":
+            list = legendaryList;
+            imgType = rarity;
+            break;
+        case "armor":
+            list = armorList;
+            imgType = rarity;
+            useNestedList = true;
+            break;
+        case "spell":
+
+            var chosen = false;
+
+            while (!chosen)
+            {
+                var check = Math.random();
+
+                if (check < 0.33) {
+                    if (getValue("SpellRoll")) {
+                        list = spellList;
+                        imgType = "sorcery";
+                        chosen = true;
+                    }
+                } else if (check < 0.66) {
+                    if (getValue("IncantRoll")) {
+                        list = miracleList;
+                        imgType = "miracle";
+                        chosen = true;
+                    }
+                } else {
+                    list = ashOfWarList;
+                    imgType = "pyromancy";
+                    chosen = true;
+                }
+            }
+            break;
+    }
+
+    randomItem = getRandomElementFrom(list, useNestedList);
+
+    if (rarity == "consumable") {
+        const amountOf = randomItem.replace(/[^0-9]/g, "");
+
+        if (amountOf) {
+            randomItem = randomItem.replace(amountOf, amountOf*getConsumableAmount());
+        } else {
+            randomItem += " (" + getConsumableAmount() + "x)";
+        }
+    }
+
+    decreaseValue(rarity);
+
+    currentMisfortunes.push(["Add: " + randomItem, "Add: " + randomItem, 1]);
+
+    fillEffect();
+
+    fillCard(imgType, randomItem, randomItem);
+}
 
 function fixNameFormat(string) {
     
@@ -524,7 +482,7 @@ function setInnerOf(rarity, amount) {
 function showMisfortuneDetails() {
     var detailsText = "Current misfortunes / challenge active:\n\n";
     var i = 0;
-    
+
     if (currentMisfortunes.length < 1) {
         detailsText = "No misfortunes active.";
     } else {
@@ -533,8 +491,8 @@ function showMisfortuneDetails() {
             detailsText += i + ".\n" + misfortuneIter[1] + ":\n" + misfortuneIter[0] + "\n" + misfortuneIter[2] + " turn(s) left\n\n";
         });
     }
-    
-    
+
+
     alert(detailsText);
 }
 
@@ -548,7 +506,6 @@ function getRandomElementFrom(list, nestedArrayMode = false)
 
     if (nestedArrayMode)
     {
-        // console.log("Using nested list.")
         let randomNestedList = list[Math.floor(list.length * Math.random())]
         let filteredList = randomNestedList[1].filter((word) => word != "")
         check = Math.random()
@@ -687,91 +644,6 @@ function rollRewards(win) {
     }
     
     setButtonAmounts();
-}
-
-function useReward(rarity) {
-    var list = [];
-    var randomItem;
-    var imgType = "";
-    var useNestedList = false;
-    
-    switch (rarity) {
-        case "consumable":
-            if (getValue("CraftingMaterials")) {
-				list = craftingMaterialsList;
-			}
-			else {
-				list = consumablesList;
-			}
-			list.push(...uncraftablesList);
-			
-            imgType = rarity;
-            break;
-        case "weapon":
-            list = weaponsList;
-            imgType = rarity;
-            break;
-        case "talisman":
-            list = talismansList;
-            imgType = rarity;
-            break;
-        case "legendary":
-            list = legendaryList;
-            imgType = rarity;
-            break;
-        case "armor":
-            list = armorList;
-            imgType = rarity;
-            useNestedList = true;
-            break;
-        case "spell":
-
-            var chosen = false;
-
-            while (!chosen)
-            {
-                var check = Math.random();
-
-                if (check < 0.33) {
-                    if (getValue("SpellRoll")) {
-                        list = spellList;
-                        imgType = "sorcery";
-                        chosen = true;
-                    }
-                } else if (check < 0.66) {
-                    if (getValue("IncantRoll")) {
-                        list = miracleList;
-                        imgType = "miracle";
-                        chosen = true;
-                    }
-                } else {
-                    list = ashOfWarList;
-                    imgType = "pyromancy";
-                    chosen = true;
-                }
-            }
-            break;
-    }
-	
-	randomItem = getRandomElementFrom(list, useNestedList);
-	
-	if (rarity == "consumable") {
-		const amountOf = randomItem.replace(/[^0-9]/g, "");
-		
-		if (amountOf) {
-			randomItem = randomItem.replace(amountOf, amountOf*getConsumableAmount());
-		} else {
-			randomItem += " (" + getConsumableAmount() + "x)";
-		}
-	}
-    
-    decreaseValue(rarity);
-    
-	currentMisfortunes.push(["Add: " + randomItem.replaceAll("\n", ", "), "Add: " + randomItem.replaceAll("\n", ", "), 1]);
-        
-	fillEffect();
-	
-    fillCard(imgType, randomItem, randomItem);
 }
 
 function useMisfortune() {
@@ -931,37 +803,168 @@ function getConsumableAmount() {
     } 
 }
 
-//
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+//COOKIES FUNCTIONALITY
+
+function loadList() {
+
+    mode = "er"
+
+    var newScript = document.createElement("script");
+    newScript.src = 'lists/' + mode + '.js';
+    newScript.type = 'text/javascript';
+    document.getElementsByTagName('head')[0].appendChild(newScript);
+}
+
+function changeGamemode(gamemode) {
+
+    if (confirm("This will reset all values and percentages and then set the current game to " + gamemode + ".\n\nProceed?")) {
+        mode = gamemode;
+        consumables = 0;
+        talismans = 0;
+        weapons = 0;
+        legendaries = 0;
+        misfortunes = 0;
+        armors = 0;
+        spells = 0;
+
+        setCookies();
+        document.location.reload(true);
+    }
+
+}
+
+function setCookies() {
+    //
+    //Set all cookie values at once
+
+    var saveCText = "";
+
+    allValues.forEach(rarity => {
+        saveCText += (rarity + ": " + getCookie(rarity) + "\n");
+    });
+
+    if (!confirm(cookieDialogPre + saveCText + cookieDialogPost)) {
+        return;
+    }
+
+    var cookies = [];
+
+    var now = new Date();
+    var time = now.getTime();
+    var expireTime = time + 1000*36000;
+    now.setTime(expireTime);
+    var appendage = "expires="+ now.toUTCString() + ";sameSite=Lax";
+
+    allValues.forEach(rarity => {
+
+        document.cookie = rarity + "C=" + getValue(rarity) + "; " + appendage;
+
+    });
+}
 
 function loadButtonPressed() {
-    
+
     if (getCookie("mode") == "") {
         alert("No cookies found, aborting load.");
         return false;
-    } 
-       
+    }
+
     if (getCookie("mode") != mode) {
-        
+
         if (confirm("The cookies have saved a different mode than currently active. Proceeding will reload the page and change the gamemode to " + getCookie("mode") + ", additionally all rewards not rolled will be gone. Proceed?")) {
             document.location.reload(true);
         }
-        
+
     } else {
         ///SHOW VALUES OF COOKIES
-        
+
         if (showAlert) {
             var confirmText = "The following values have been saved in cookies:\n\n";
-        
+
             allValues.forEach(rarity => {
                 confirmText += (rarity + ": " + getCookie(rarity) + "\n");
             });
-            
+
             confirmText += "\nWould you like to load these values?";
-            
+
             if (!confirm(confirmText)) {return;}
         }
-        
+
         loadFromCookies();
     }
-    
+
+}
+
+
+function getCookie(cname) {
+
+    //geta specific cookie value from an ID
+
+    var name = cname + "C=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            // console.log("getCookie(" + cname + ") yielded " + c.substring(name.length, c.length));
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+    //w3schools example for cookie read
+}
+
+function loadFromCookies(showAlert = false) {
+
+    if (getCookie("mode") == "") {
+        if (showAlert) {
+            alert("No cookies found, aborting load.");
+        }
+        return false;
+    }
+
+    allValues.forEach(rarity => {
+        //         console.log("Loaded value for " + rarity + ": " + getCookie(rarity) + ". Setting...");
+
+        setValue(rarity, getCookie(rarity));
+
+    });
+}
+
+function deleteCookies() {
+
+    if (confirm("Delete all cookies?")) {
+
+        var cookies = [];
+
+        var now = new Date();
+        var time = now.getTime();
+        var appendage = "expires="+ now.toUTCString() + ";sameSite=Lax";
+
+        allValues.forEach(rarity => {
+
+            document.cookie = rarity + "C=" + getValue(rarity) + "; " + appendage;
+
+
+        });
+
+        //         console.log(document.cookie);
+
+    };
+
+}
+
+function getCookieValues() {
+    var values = [];
+
+    allValues.forEach(rarity => {
+        values.push(getCookie(rarity));
+    });
 }
