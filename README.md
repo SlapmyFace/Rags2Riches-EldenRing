@@ -16,7 +16,9 @@ Prerequisites:
 
 
 The GUI looks like this:
-![r2rscreenshot](https://github.com/user-attachments/assets/8b51800c-2d85-4b38-a2c7-13e664822ee1)
+
+<img src="https://github.com/user-attachments/assets/5acd24ca-5948-4b7a-ac5e-292a920bf4a4" width="300" height="650" />
+
 
 The basic loop:
 1. Start an invasion or a colosseum match, or use the taunter's tongue.
