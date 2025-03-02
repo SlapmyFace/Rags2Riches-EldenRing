@@ -8,8 +8,8 @@
 
     <title>Rags to Riches</title>
 	<style>
-	@font-face { font-family: DS; src: url('MantiniaRegular.otf'); }
-	@font-face { font-family: DSBold; src: url('Mantinia Regular.otf'); }
+/* 	@font-face { font-family: DS; src: url('MantiniaRegular.otf'); } */
+/* 	@font-face { font-family: DSBold; src: url('Mantinia Regular.otf'); } */
 	</style>
   </head>
   <body style="background-image: url('img/bg.png'); background-size: cover; background-repeat: no-repeat; background-position: center center; background-attachment: fixed; background-color: #000000;">
@@ -51,7 +51,7 @@
             
                 <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
 
-                    <input type="checkbox" class="btn-check" id="v_SpellRoll" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="v_SpellRoll" autocomplete="off" checked>
                     <label class="btn btn-outline-secondary" for="v_SpellRoll" title="Includes sorcery in spell rewards">Sorcery rolling</label>
 
                     <input type="checkbox" class="btn-check" id="v_IncantRoll" autocomplete="off" checked>
@@ -67,42 +67,42 @@
                     <label class="btn btn-outline-secondary" for="v_CraftingMaterials" title="Roll crafting materials instead of consumables">Crafting Materials instead of Consumables</label>
 
                     <input type="checkbox" class="btn-check" id="v_MfContinue" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="v_MfContinue" title="Blocks Win or Lose click until misfortunes have all been used">No Reroll on MF > 0</label>
+                    <label class="btn btn-outline-secondary" for="v_MfContinue" title="Blocks Win or Lose click until misfortunes have all been used">No Reroll on unclaimed Misfortunes</label>
                     
                     <input type="checkbox" class="btn-check" id="v_Continue" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="v_Continue" title="Blocks Win or Lose click until everything has been used">No Reroll on any > 0</label>
+                    <label class="btn btn-outline-secondary" for="v_Continue" title="Blocks Win or Lose click until everything has been used">No Reroll on unclaimed Rewards</label>
                 </div>
                 <br><br>
                 <div class="mx-auto text-white" style="width: 75%; max-width: 600px">
-                    <label for="v_consumable" id="l_consumable" class="form-label">Change for common reward on roll:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_consumable" oninput="l_consumable.innerText = 'Common: ' + (v_consumable.value * 100).toFixed(1) + ' %'">
+                    <label for="v_consumable" id="l_consumable" class="form-label">Consumable Chance:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_consumable" oninput="l_consumable.innerText = 'Consumable Chance:: ' + (v_consumable.value * 100).toFixed(1) + ' %'">
                     
-                    <label for="v_weapon" id="l_weapon" class="form-label">Change for rare reward on roll:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_weapon" oninput="l_weapon.innerText = 'Rare: ' + (v_weapon.value * 100).toFixed(1) + ' %'">
+                    <label for="v_weapon" id="l_weapon" class="form-label">Weapon Chance:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_weapon" oninput="l_weapon.innerText = 'Weapon Chance:: ' + (v_weapon.value * 100).toFixed(1) + ' %'">
                                         
-                    <label for="v_talisman" id="l_talisman" class="form-label">Change for rare reward on roll:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_talisman" oninput="l_talisman.innerText = 'Rare: ' + (v_talisman.value * 100).toFixed(1) + ' %'">
+                    <label for="v_talisman" id="l_talisman" class="form-label">Talisman Chance:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_talisman" oninput="l_talisman.innerText = 'Talisman Chance:Talisman Chance:' + (v_talisman.value * 100).toFixed(1) + ' %'">
                     
-                    <label for="v_legendary" id="l_legendary" class="form-label">Change for legendary reward on roll:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_legendary" oninput="l_legendary.innerText = 'Legendary: ' + (v_legendary.value * 100).toFixed(1) + ' %'">
+                    <label for="v_legendary" id="l_legendary" class="form-label">Legendary Chance:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_legendary" oninput="l_legendary.innerText = 'Legendary Chance: ' + (v_legendary.value * 100).toFixed(1) + ' %'">
                     
-                     <label for="v_misfortune" id="l_misfortune" class="form-label">Change for misfortune on loss:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortune" oninput="l_misfortune.innerText = 'Misfortune on loss: ' + (v_misfortune.value * 100).toFixed(1) + ' %'">                    
+                     <label for="v_misfortune" id="l_misfortune" class="form-label">Misfortune Chance:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortune" oninput="l_misfortune.innerText = 'Misfortune Chance: ' + (v_misfortune.value * 100).toFixed(1) + ' %'">
                     
-                    <label for="v_armor" id="l_armor" class="form-label">Change for armor reward on roll:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_armor" oninput="l_armor.innerText = 'Armor: ' + (v_armor.value * 100).toFixed(1) + ' %'">
+                    <label for="v_armor" id="l_armor" class="form-label">Armor Chance:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_armor" oninput="l_armor.innerText = 'Armor Chance: ' + (v_armor.value * 100).toFixed(1) + ' %'">
                     
-                    <label for="v_spell" id="l_spell" class="form-label">Change for spell reward on roll:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_spell" oninput="l_spell.innerText = 'Spell: ' + (v_spell.value * 100).toFixed(1) + ' %'; ">
+                    <label for="v_spell" id="l_spell" class="form-label">Spell Chance:</label>
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_spell" oninput="l_spell.innerText = 'Spell Chance: ' + (v_spell.value * 100).toFixed(1) + ' %'; ">
                     
                     <label for="v_misfortuneAvoidance" id="l_misfortuneAvoidance" class="form-label">Change for getting lucky on rolling misfortune:</label>
-                    <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_misfortuneAvoidance" oninput="l_misfortuneAvoidance.innerText = 'Misfortune Avoidance: ' + (v_misfortuneAvoidance.value * 100).toFixed(1) + ' %'">
+                    <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_misfortuneAvoidance" oninput="l_misfortuneAvoidance.innerText = 'Change for getting lucky on rolling misfortune: ' + (v_misfortuneAvoidance.value * 100).toFixed(1) + ' %'">
                     
-                    <label for="v_challenge" id="l_challenge" class="form-label">Change for getting a challenge when not lucky:</label>
-                    <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_challenge" oninput="l_challenge.innerText = 'Challenge on Misfortune: ' + (v_challenge.value * 100).toFixed(1) + ' %'">
+                    <label for="v_challenge" id="l_challenge" class="form-label">Chance for getting a challenge when not lucky:</label>
+                    <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_challenge" oninput="l_challenge.innerText = 'Change for getting a challenge when not lucky: ' + (v_challenge.value * 100).toFixed(1) + ' %'">
                     
                     <label for="v_misfortuneOnWin" id="l_misfortuneOnWin" class="form-label">Chance for misfortune on win:</label>
-                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortuneOnWin" oninput="l_misfortuneOnWin.innerText = 'Mfw: ' + (v_misfortuneOnWin.value * 100).toFixed(1) + ' %'">
+                    <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortuneOnWin" oninput="l_misfortuneOnWin.innerText = 'Chance for misfortune on win: ' + (v_misfortuneOnWin.value * 100).toFixed(1) + ' %'">
                 </div>
                 
                 <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('baby');" type="button">Baby defaults</button>

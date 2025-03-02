@@ -214,6 +214,8 @@ function getValue(valueID) {
     }
     
     check = document.getElementById("v_" + valueID);
+
+    // console.log("Starting check for valueID " + "v_" + valueID)
     
     if (check) {
         if (check.type == "range") {
@@ -232,7 +234,8 @@ function getValue(valueID) {
             
             
         }
-    }
+    } else
+        // console.log("Check returned " + check)
     
 }
 
@@ -651,28 +654,33 @@ function useMisfortune() {
     if (decreaseValue("misfortune")) {
         
         var randomItem;
-        var check;
+        let check;
         var prefix = "";
         
         while (!randomItem) {
-				
-			console.log("misfortuneAvoidance is " + getValue("misfortuneAvoidance"))
+            // console.log("Starting check for misfortune.")
 		
 			check = Math.random();
 				
-            if (check > getValue("misfortuneAvoidance")) {
+            if (check > getValue("misfortuneAvoidance"))
+            {
+                // console.log("Mf Avoidance didn't fire. Proceeding.")
+                check = Math.random()
+
+                // console.log("Challenges are " + (getValue("SkipChallenges") ? "disabled" : "enabled"))
+                // console.log("Challenge chance is " + getValue("Challenge") + ", check is" + check)
                 
-                
-                if (check < getValue("Challenge") && !getValue("SkipChallenges")) {
+                if (check < getValue("challenge") && !getValue("SkipChallenges")) {
                     randomItem = getRandomElementFrom(challengeList);
-                    prefix = "Challenge: ";
+                    prefix = "challenge";
                 } else {
-					prefix = "Misfortune: ";
+					prefix = "misfortune";
                     randomItem = getRandomElementFrom(misfortuneList);
                 }
                 
             } else {
-				console.log("Rolled avoidance")
+				// console.log("Rolled avoidance")
+                prefix = "lucky"
                 randomItem = getRandomElementFrom(avoidanceList);
             }
             
@@ -682,7 +690,7 @@ function useMisfortune() {
         
         fillEffect();
         
-        fillCard("misfortune", randomItem[0], prefix + "\n" + randomItem[0]);
+        fillCard(prefix, randomItem[0], randomItem[0]);
         
 //         console.log(randomItem[1] + " (" + currentDuration + " turns)");
         
