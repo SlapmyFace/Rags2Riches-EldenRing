@@ -89,65 +89,74 @@ var tutorial;
 
 var currentMisfortunes = [];
 
-var percentagesBaby = [];
-percentagesBaby["consumable"] = 2.0;
-percentagesBaby["weapon"] = 1.2;
-percentagesBaby["talisman"] = 1.2;
-percentagesBaby["legendary"] = 1.1;
-percentagesBaby["misfortune"] = 0.2;
-percentagesBaby["armor"] = 1.4;
-percentagesBaby["spell"] = 1.2;
-percentagesBaby["misfortuneAvoidance"] = 0.5;
-percentagesBaby["challenge"] = 1;
-percentagesBaby["misfortuneOnWin"] = 0;
+let difficulties = {
+    baby: {
+        consumable: 2.0,
+        weapon: 1.2,
+        talisman: 1.2,
+        legendary: 1.1,
+        misfortune: 0.2,
+        armor: 1.4,
+        spell: 1.2,
+        misfortuneAvoidance: 0.5,
+        challenge: 1.0,
+        misfortuneOnWin: 0.0
+    },
+    easy: {
+        consumable: 1.0,
+        weapon: 1.0,
+        talisman: 1.0,
+        legendary: 0.5,
+        misfortune: 0.1,
+        armor: 1.0,
+        spell: 1.0,
+        misfortuneAvoidance: 0.20,
+        challenge: 0.5,
+        misfortuneOnWin: 0.0
+    },
+    medium: {
+        consumable: 1.3,
+        weapon: 0.7,
+        talisman: 0.35,
+        legendary: 0.06,
+        misfortune: 0.25,
+        armor: 0.45,
+        spell: 0.7,
+        misfortuneAvoidance: 0.1,
+        challenge: 0.75,
+        misfortuneOnWin: 0.0
+    },
+    chase: {
+        consumable: 1.3,
+        weapon: 0.6,
+        talisman: 0.35,
+        legendary: 0.04,
+        misfortune: 1.0,
+        armor: 0.45,
+        spell: 0.6,
+        misfortuneAvoidance: 0.4,
+        challenge: 0.85,
+        misfortuneOnWin: 0.2
+    },
+    nightmare: {
+        consumable: 0.65,
+        weapon: 0.2,
+        talisman: 0.2,
+        legendary: 0.03,
+        misfortune: 0.5,
+        armor: 0.25,
+        spell: 0.1,
+        misfortuneAvoidance: 0.02,
+        challenge: 0.4,
+        misfortuneOnWin: 0.1
+    }
+};
 
-var percentagesEasy = [];
-percentagesEasy["consumable"] = 1.0;
-percentagesEasy["weapon"] = 1.0;
-percentagesEasy["talisman"] = 1.0;
-percentagesEasy["legendary"] = 0.5;
-percentagesEasy["misfortune"] = 0.1;
-percentagesEasy["armor"] = 1.0;
-percentagesEasy["spell"] = 1.0;
-percentagesEasy["misfortuneAvoidance"] = 0.20;
-percentagesEasy["challenge"] = 0.5;
-percentagesEasy["misfortuneOnWin"] = 0.0;
+// Function to get difficulty data
+function getDifficulty(name) {
+    return difficultyLootTable[name] || null;
+}
 
-var percentagesMedium = [];
-percentagesMedium["consumable"] = 1.3;
-percentagesMedium["weapon"] = 0.7;
-percentagesMedium["talisman"] = 0.35;
-percentagesMedium["legendary"] = 0.06;
-percentagesMedium["misfortune"] = 0.25;
-percentagesMedium["armor"] = 0.45;
-percentagesMedium["spell"] = 0.7;
-percentagesMedium["misfortuneAvoidance"] = 0.1;
-percentagesMedium["challenge"] = 0.75;
-percentagesMedium["misfortuneOnWin"] = 0.0;
-
-var percentagesHard = [];
-percentagesHard["consumable"] = 0.65;
-percentagesHard["weapon"] = 0.2;
-percentagesHard["talisman"] = 0.2;
-percentagesHard["legendary"] = 0.03;
-percentagesHard["misfortune"] = 0.5;
-percentagesHard["armor"] = 0.25;
-percentagesHard["spell"] = 0.1;
-percentagesHard["misfortuneAvoidance"] = 0.02;
-percentagesHard["challenge"] = 0.3;
-percentagesHard["misfortuneOnWin"] = 0.1;
-
-var percentagesMental = [];
-percentagesMental["consumable"] = 0.25;
-percentagesMental["weapon"] = 0.05;
-percentagesMental["talisman"] = 0.05;
-percentagesMental["legendary"] = 0.005;
-percentagesMental["misfortune"] = 0.9;
-percentagesMental["armor"] = 0.05;
-percentagesMental["spell"] = 0.05;
-percentagesMental["misfortuneAvoidance"] = 0;
-percentagesMental["challenge"] = 0.3;
-percentagesMental["misfortuneOnWin"] = 0.25;
 
 setPercentageDefaults("medium");
 
@@ -234,32 +243,24 @@ function getValue(valueID) {
             
             
         }
-    } else
+    } else {
         // console.log("Check returned " + check)
-    
+    }
 }
 
 function setPercentageDefaults(difficulty) {
+
+
     
-    var percentages = [];
-    
-    if (difficulty == "baby") {
-		percentages = percentagesBaby;
-    } else if (difficulty == "easy") {
-		percentages = percentagesEasy;
-    } else if (difficulty == "medium") {
-		percentages = percentagesMedium;
-    } else if (difficulty == "hard") {
-		percentages = percentagesHard;
-    } else if (difficulty == "fuck") {
-		percentages = percentagesMental;
+    const percentages = difficulties[difficulty] || null;
+
+    for (let key in percentages) {
+        console.log(`${key}: ${percentages[key]}`);
+        setValue(key, percentages[key])
     }
-	
-	console.log("difficulty set to " + difficulty)
-    
-    allValues.forEach(rarity => {
-            setValue(rarity, percentages[rarity]);
-    });
+
+    document.getElementById("difficultyName").innerText = "Difficulty: " + difficulty.substring(0, 1) + difficulty.substring(1)
+
     
 }
 
@@ -305,7 +306,7 @@ function useReward(rarity) {
         case "talisman":
             list = talismansList;
             imgType = rarity;
-            break;
+            break;g
         case "legendary":
             list = legendaryList;
             imgType = rarity;
@@ -813,10 +814,6 @@ function getConsumableAmount() {
 
 
 
-/////////////////////////////////////////////////////////////////////////////
-
-//COOKIES FUNCTIONALITY
-
 function loadList() {
 
     mode = "er"
@@ -844,6 +841,9 @@ function changeGamemode(gamemode) {
     }
 
 }
+
+/////////////////////////////////////////////////////////////////////////////
+//COOKIES FUNCTIONALITY
 
 function setCookies() {
     //
@@ -927,6 +927,10 @@ function getCookie(cname) {
     }
     return "";
     //w3schools example for cookie read
+}
+function setCookie(cname)
+{
+
 }
 
 function loadFromCookies(showAlert = false) {

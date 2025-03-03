@@ -13,6 +13,7 @@
 	</style>
   </head>
   <body style="background-image: url('img/bg.png'); background-size: cover; background-repeat: no-repeat; background-position: center center; background-attachment: fixed; background-color: #000000;">
+    <h3 id="difficultyName" class="text-center text-muted fs-6"> Difficulty: none </h3>
     <div class="container mx-auto center-block text-center">
        
         
@@ -71,8 +72,14 @@
                     
                     <input type="checkbox" class="btn-check" id="v_Continue" autocomplete="off">
                     <label class="btn btn-outline-secondary" for="v_Continue" title="Blocks Win or Lose click until everything has been used">No Reroll on unclaimed Rewards</label>
-                </div>
-                <br><br>
+                </div><br><br>
+
+                <button class="btn btn-secondary fs-6" style="width: 120px" onmousedown="setPercentageDefaults('baby');" type="button">Baby</button>
+                <button class="btn btn-secondary fs-6" style="width: 120px" onmousedown="setPercentageDefaults('easy');" type="button">Easy</button>
+                <button class="btn btn-secondary fs-6" style="width: 120px" onmousedown="setPercentageDefaults('medium');" type="button">Medium</button>
+                <button class="btn btn-secondary fs-6" style="width: 120px" onmousedown="setPercentageDefaults('chase');" type="button">ChaseTheBro</button>
+                <button class="btn btn-secondary fs-6" style="width: 120px" onmousedown="setPercentageDefaults('nightmare');" type="button">Nightmare</button>
+                <br>
                 <div class="mx-auto text-white" style="width: 75%; max-width: 600px">
                     <label for="v_consumable" id="l_consumable" class="form-label">Consumable Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_consumable" oninput="l_consumable.innerText = 'Consumable Chance:: ' + (v_consumable.value * 100).toFixed(1) + ' %'">
@@ -104,12 +111,6 @@
                     <label for="v_misfortuneOnWin" id="l_misfortuneOnWin" class="form-label">Chance for misfortune on win:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortuneOnWin" oninput="l_misfortuneOnWin.innerText = 'Chance for misfortune on win: ' + (v_misfortuneOnWin.value * 100).toFixed(1) + ' %'">
                 </div>
-                
-                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('baby');" type="button">Baby defaults</button>
-                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('easy');" type="button">Easy defaults</button>
-                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('medium');" type="button">Medium defaults</button>
-                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('hard');" type="button">Hard defaults</button>
-                <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="setPercentageDefaults('fuck');" type="button" title="You're nuts dude. Good luck.">Mental defaults</button><br><br>
 <!--                 <button class="btn btn-outline-primary fs-6" style="width: 100px" onmousedown="setCookies();" type="button">Save settings</button> -->
 <!--                 <button class="btn btn-outline-primary fs-6" style="width: 100px" onmousedown="loadButtonPressed();" type="button">Load settings</button> -->
 <!--                 <button class="btn btn-outline-primary fs-6" style="width: 100px" onmousedown="deleteCookies();" type="button">Delete cookies</button> -->
