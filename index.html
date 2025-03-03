@@ -15,16 +15,16 @@
   <body style="background-image: url('img/bg.png'); background-size: cover; background-repeat: no-repeat; background-position: center center; background-attachment: fixed; background-color: #000000;">
     <h3 id="difficultyName" class="text-center text-muted fs-6"> Difficulty: none </h3>
     <div class="container mx-auto center-block text-center">
-       
-        
-        
+
+
+
         <div class="card mb-3 my-5 mx-auto w-75" style="max-width: 700px;">
             <div class="row g-0">
                 <div class="col-md-4 bg-dark">
                     <img src="..." alt="" class="p-4" id="cardImgReward" style="width: 100%; height: auto;">
                 </div>
                 <div class="col-md-8">
-                    <div class="card-header"> 
+                    <div class="card-header">
                         <h1 id="cardTitle" alt="" style="font-family: MantiniaRegular; text-shadow: 0 0 3px red">
                     </div>
                     <div class="card-body">
@@ -42,14 +42,9 @@
                 Advanced
             </button>
             <div class="collapse" id="collapseMenu">
-            
+
             <br>
 
-
-            <button type="button" class="btn btn-success" onmousedown="showTutorial();">Tutorial on Rags To Riches</button><br>
-            <button type="button" class="btn btn-success" onmousedown="showLicense();">License</button><br><br>
-            <br>
-            
                 <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
 
                     <input type="checkbox" class="btn-check" id="v_SpellRoll" autocomplete="off" checked>
@@ -69,7 +64,7 @@
 
                     <input type="checkbox" class="btn-check" id="v_MfContinue" autocomplete="off" checked>
                     <label class="btn btn-outline-secondary" for="v_MfContinue" title="Blocks Win or Lose click until misfortunes have all been used">No Reroll on unclaimed Misfortunes</label>
-                    
+
                     <input type="checkbox" class="btn-check" id="v_Continue" autocomplete="off">
                     <label class="btn btn-outline-secondary" for="v_Continue" title="Blocks Win or Lose click until everything has been used">No Reroll on unclaimed Rewards</label>
                 </div><br><br>
@@ -83,31 +78,31 @@
                 <div class="mx-auto text-white" style="width: 75%; max-width: 600px">
                     <label for="v_consumable" id="l_consumable" class="form-label">Consumable Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_consumable" oninput="l_consumable.innerText = 'Consumable Chance:: ' + (v_consumable.value * 100).toFixed(1) + ' %'">
-                    
+
                     <label for="v_weapon" id="l_weapon" class="form-label">Weapon Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_weapon" oninput="l_weapon.innerText = 'Weapon Chance:: ' + (v_weapon.value * 100).toFixed(1) + ' %'">
-                                        
+
                     <label for="v_talisman" id="l_talisman" class="form-label">Talisman Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_talisman" oninput="l_talisman.innerText = 'Talisman Chance:Talisman Chance:' + (v_talisman.value * 100).toFixed(1) + ' %'">
-                    
+
                     <label for="v_legendary" id="l_legendary" class="form-label">Legendary Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_legendary" oninput="l_legendary.innerText = 'Legendary Chance: ' + (v_legendary.value * 100).toFixed(1) + ' %'">
-                    
+
                      <label for="v_misfortune" id="l_misfortune" class="form-label">Misfortune Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortune" oninput="l_misfortune.innerText = 'Misfortune Chance: ' + (v_misfortune.value * 100).toFixed(1) + ' %'">
-                    
+
                     <label for="v_armor" id="l_armor" class="form-label">Armor Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_armor" oninput="l_armor.innerText = 'Armor Chance: ' + (v_armor.value * 100).toFixed(1) + ' %'">
-                    
+
                     <label for="v_spell" id="l_spell" class="form-label">Spell Chance:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_spell" oninput="l_spell.innerText = 'Spell Chance: ' + (v_spell.value * 100).toFixed(1) + ' %'; ">
-                    
+
                     <label for="v_misfortuneAvoidance" id="l_misfortuneAvoidance" class="form-label">Change for getting lucky on rolling misfortune:</label>
                     <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_misfortuneAvoidance" oninput="l_misfortuneAvoidance.innerText = 'Change for getting lucky on rolling misfortune: ' + (v_misfortuneAvoidance.value * 100).toFixed(1) + ' %'">
-                    
+
                     <label for="v_challenge" id="l_challenge" class="form-label">Chance for getting a challenge when not lucky:</label>
                     <input type="range" step="0.005" min="0" max="1" class="form-range" id="v_challenge" oninput="l_challenge.innerText = 'Change for getting a challenge when not lucky: ' + (v_challenge.value * 100).toFixed(1) + ' %'">
-                    
+
                     <label for="v_misfortuneOnWin" id="l_misfortuneOnWin" class="form-label">Chance for misfortune on win:</label>
                     <input type="range" step="0.005" min="0" max="3" class="form-range" id="v_misfortuneOnWin" oninput="l_misfortuneOnWin.innerText = 'Chance for misfortune on win: ' + (v_misfortuneOnWin.value * 100).toFixed(1) + ' %'">
                 </div>
@@ -116,6 +111,11 @@
 <!--                 <button class="btn btn-outline-primary fs-6" style="width: 100px" onmousedown="deleteCookies();" type="button">Delete cookies</button> -->
                 <!-- <br><br><button class="btn btn-outline-secondary" style="width: 10%" id="modeButton"> ER </button><br> -->
 <!--                 <button class="btn btn-secondary fs-6" style="width: 100px" onmousedown="console.log(document.cookie)" type="button">Show cookie string</button> -->
+            <br>
+
+
+            <button type="button" class="btn btn-success" onmousedown="showTutorial();">Tutorial on Rags To Riches</button>
+            <button type="button" class="btn btn-success" onmousedown="showLicense();">License</button><br><br>
             </div>
 </div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -133,10 +133,10 @@
         <button class="btn btn-success" style="width: 45%; max-width: 250px;" onmousedown="rollRewards(true);" type="button" title="Won a match? Click here">Win</button>
         <button class="btn btn-danger" style="width: 45%; max-width: 250px;" onmousedown="rollRewards(false);" type="button" title="Lost a match, click here">Lose</button><br>
 <!--         <br><br><p class="text-white fst-italic" style="font-size: 8px"> Created by SlapmyFace (2021) using Bootstrap</p> -->
-    
+
     </div>
 </div>
-    
+
     <script id="listSrc" src="functions.js"></script>
   </body>
 </html>
