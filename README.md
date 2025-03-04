@@ -2,7 +2,7 @@ This is a Rags To Riches type of mini game for Elden Ring PVP. You start with ba
 
 Plus, it has a "misfortune" system, which are penalties on losses that include stashing some weapons or armor, but also include fun little challenges like going naked for one match or using parries to kill enemies that reward you if you do them right.
 
-The app is a simple website with javascript, without any connections to a server. This can be run locally, but this will also be hosted on a website soon under https://rags2rich.es. For now, simply download the code and place in somwhere accessible, then open the index.html in a browser.
+The app is a simple website with javascript, without any connections to a server. This is hosted under https://rags2rich.es, but you can also download the code and run it locally if you want. 
 
 Many things can be customized:
 1. Chances for different types of loot
